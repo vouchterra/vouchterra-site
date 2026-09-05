@@ -528,6 +528,8 @@
               <label for="email">Email</label>
               <input type="email" id="email" name="Email" required>
             </div>
+            <!-- Honeypot: bots fill this, humans never see it; Formspree discards non-empty _gotcha -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
             <div class="field-row">
               <div class="field">
                 <label for="role">I&#8217;m a...</label>
