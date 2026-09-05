@@ -106,7 +106,7 @@
           </text>
           <path d="M70 90 L92 134" stroke="#F4F1EA" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M92 134 L128 74" stroke="#C9A227" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="100" y="160" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" letter-spacing="2.2" fill="#C9A227" id="seal-number">No. — / 10</text>
+          <text x="100" y="160" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" letter-spacing="2.2" fill="#C9A227" id="seal-number">No. — / 100</text>
         </svg>
         <div class="member-name" id="member-name"></div>
         <div class="member-meta" id="member-meta"></div>
@@ -115,6 +115,8 @@
       </div>
 
       <div class="member-actions">
+        <a class="btn btn-gold" href="https://vouchterra-app.vercel.app/app/vendors" style="margin-bottom:14px">Open VouchTerra →</a>
+        <br>
         <button class="link-btn" id="edit-profile" type="button">Edit my details</button>
       </div>
     </div>
@@ -135,16 +137,17 @@
 (async function () {
   const cfg = window.VT_CONFIG || {};
   const $ = (id) => document.getElementById(id);
-  const FOUNDING_LIMIT = cfg.foundingLimit || 10;
+  const FOUNDING_LIMIT = cfg.foundingLimit || 100;
 
   if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) { location.replace('/join.html'); return; }
-  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  // Implicit flow (matches join.html): tokens arrive in the URL hash and work from any device.
+  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { flowType: 'implicit' } });
 
   // supabase-js reads the OAuth / magic-link tokens out of the URL automatically on load.
   let { data: { session } } = await sb.auth.getSession();
   if (!session) {
-    // Give the URL-token exchange a beat to finish (PKCE code flow).
-    await new Promise((r) => setTimeout(r, 600));
+    // Give the URL-token exchange a beat to finish.
+    await new Promise((r) => setTimeout(r, 800));
     ({ data: { session } } = await sb.auth.getSession());
   }
   if (!session) { location.replace('/join.html'); return; }
