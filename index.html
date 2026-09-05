@@ -13,621 +13,628 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='24' fill='%231F3D2E'/%3E%3Cpath d='M30 52 L52 86 L98 26' stroke='%23C9A227' stroke-width='15' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <style>
-  :root{
-    --pine:#1F3D2E; --pine-deep:#16291F; --pine-mid:#274a38;
-    --gold:#C9A227; --gold-soft:#D9B94E; --gold-dim:#8a6f12;
-    --bone:#F4F1EA; --bone-warm:#EDE8DD;
-    --stone:#8A8D87; --stone-light:#B8B8B0;
-    --ink:#16191C; --ink-soft:#3d4a42;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Outfit',sans-serif;
-    background:var(--bone);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  .serif{font-family:'Fraunces',serif;}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
-  @media(max-width:640px){.wrap{padding:0 22px;}}
+:root{
+  --pine:#1F3D2E; --pine-deep:#16291F; --pine-mid:#274a38;
+  --gold:#C9A227; --gold-soft:#D9B94E; --gold-dim:#8a6f12;
+  --bone:#F4F1EA; --bone-warm:#EDE8DD;
+  --stone:#8A8D87; --stone-light:#B8B8B0;
+  --ink:#16191C; --ink-soft:#3d4a42;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.serif{font-family:'Fraunces',serif;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+@media(max-width:640px){.wrap{padding:0 22px;}}
 
-  /* ============ NAV ============ */
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    background:rgba(31,61,46,.92);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(201,162,39,.15);
-  }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;}
-  @media(max-width:640px){.nav-inner{padding:14px 22px;}}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
-  .brand-mark{display:flex;align-items:center;justify-content:center;}
-  .brand-text{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--bone);letter-spacing:.01em;}
-  .brand-text .cap{color:var(--bone);}
-  .nav-cta{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--gold);color:var(--pine-deep);
-    padding:10px 18px;border-radius:30px;
-    font-weight:600;font-size:14px;text-decoration:none;
-    transition:transform .15s,background .15s;
-  }
-  .nav-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(31,61,46,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,162,39,.15);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;}
+@media(max-width:640px){.nav-inner{padding:14px 22px;}}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.brand-mark{display:flex;align-items:center;justify-content:center;}
+.brand-text{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--bone);letter-spacing:.01em;}
+.brand-text .cap{color:var(--bone);}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.nav-signin{color:rgba(244,241,234,.8);text-decoration:none;font-size:14px;font-weight:500;transition:color .15s;}
+.nav-signin:hover{color:var(--gold);}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--pine-deep);
+  padding:10px 18px;border-radius:30px;
+  font-weight:600;font-size:14px;text-decoration:none;
+  transition:transform .15s,background .15s;
+}
+.nav-cta:hover{background:var(--gold-soft);transform:translateY(-1px);}
 
-  /* ============ HERO ============ */
-  .hero{
-    background:var(--pine);color:var(--bone);
-    padding:180px 32px 130px;position:relative;overflow:hidden;text-align:center;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:0;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.15), transparent 55%),
-      radial-gradient(ellipse at 20% 100%, rgba(201,162,39,.06), transparent 50%);
-    pointer-events:none;
-  }
-  .hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    text-transform:uppercase;letter-spacing:.32em;font-size:12px;
-    color:var(--gold);font-weight:600;margin-bottom:26px;
-    padding:6px 16px;border:1px solid rgba(201,162,39,.35);border-radius:30px;
-  }
-  .eyebrow-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);}
-  h1.hero-title{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:clamp(40px,7vw,80px);
-    line-height:1.05;
-    letter-spacing:-.02em;
-    margin-bottom:26px;
-  }
-  h1.hero-title .accent{color:var(--gold-soft);font-style:italic;}
-  .hero-sub{
-    font-size:clamp(16px,2.2vw,20px);
-    color:rgba(244,241,234,.78);
-    max-width:640px;margin:0 auto 44px;
-    line-height:1.6;
-  }
-  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:70px;}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:16px 30px;border-radius:32px;
-    font-weight:600;font-size:15px;text-decoration:none;
-    transition:transform .15s, background .15s, box-shadow .15s;
-    border:none;cursor:pointer;font-family:inherit;
-  }
-  .btn-primary{background:var(--gold);color:var(--pine-deep);box-shadow:0 10px 30px -10px rgba(201,162,39,.6);}
-  .btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 14px 32px -10px rgba(201,162,39,.7);}
-  .btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(244,241,234,.3);}
-  .btn-ghost:hover{background:rgba(244,241,234,.08);border-color:rgba(244,241,234,.5);}
+/* ============ HERO ============ */
+.hero{
+  background:var(--pine);color:var(--bone);
+  padding:180px 32px 130px;position:relative;overflow:hidden;text-align:center;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(201,162,39,.15), transparent 55%),
+    radial-gradient(ellipse at 20% 100%, rgba(201,162,39,.06), transparent 50%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:900px;margin:0 auto;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  text-transform:uppercase;letter-spacing:.32em;font-size:12px;
+  color:var(--gold);font-weight:600;margin-bottom:26px;
+  padding:6px 16px;border:1px solid rgba(201,162,39,.35);border-radius:30px;
+}
+.eyebrow-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);}
+h1.hero-title{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(40px,7vw,80px);
+  line-height:1.05;
+  letter-spacing:-.02em;
+  margin-bottom:26px;
+}
+h1.hero-title .accent{color:var(--gold-soft);font-style:italic;}
+.hero-sub{
+  font-size:clamp(16px,2.2vw,20px);
+  color:rgba(244,241,234,.78);
+  max-width:640px;margin:0 auto 44px;
+  line-height:1.6;
+}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:70px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 30px;border-radius:32px;
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:transform .15s, background .15s, box-shadow .15s;
+  border:none;cursor:pointer;font-family:inherit;
+}
+.btn-primary{background:var(--gold);color:var(--pine-deep);box-shadow:0 10px 30px -10px rgba(201,162,39,.6);}
+.btn-primary:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 14px 32px -10px rgba(201,162,39,.7);}
+.btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(244,241,234,.3);}
+.btn-ghost:hover{background:rgba(244,241,234,.08);border-color:rgba(244,241,234,.5);}
 
-  /* hero mark */
-  .hero-mark-large{margin:0 auto 40px;display:flex;justify-content:center;}
-  .hero-tagline{
-    font-size:11.5px;letter-spacing:.42em;text-transform:uppercase;
-    color:var(--gold-soft);opacity:.8;
-    margin-top:26px;
-  }
+/* hero mark */
+.hero-mark-large{margin:0 auto 40px;display:flex;justify-content:center;}
+.hero-tagline{
+  font-size:11.5px;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold-soft);opacity:.8;
+  margin-top:26px;
+}
 
-  /* ============ SOCIAL PROOF BAR ============ */
-  .proof-bar{
-    background:var(--pine-deep);color:rgba(244,241,234,.6);
-    padding:22px 32px;text-align:center;
-    font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;
-  }
-  .proof-bar strong{color:var(--gold);letter-spacing:.24em;}
+/* ============ SOCIAL PROOF BAR ============ */
+.proof-bar{
+  background:var(--pine-deep);color:rgba(244,241,234,.6);
+  padding:22px 32px;text-align:center;
+  font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;
+}
+.proof-bar strong{color:var(--gold);letter-spacing:.24em;}
 
-  /* ============ SECTIONS ============ */
-  section{padding:110px 0;}
-  @media(max-width:640px){section{padding:80px 0;}}
-  .section-eyebrow{
-    text-transform:uppercase;letter-spacing:.32em;font-size:11.5px;
-    color:var(--gold);font-weight:600;margin-bottom:18px;
-  }
-  h2{
-    font-family:'Fraunces',serif;font-weight:600;
-    font-size:clamp(30px,4.8vw,48px);
-    color:var(--pine);line-height:1.1;letter-spacing:-.015em;
-    margin-bottom:20px;
-  }
-  h2 .accent{color:var(--gold);font-style:italic;}
-  .lead{
-    color:var(--ink-soft);font-size:clamp(16px,1.8vw,18.5px);
-    max-width:640px;line-height:1.65;
-  }
+/* ============ SECTIONS ============ */
+section{padding:110px 0;}
+@media(max-width:640px){section{padding:80px 0;}}
+.section-eyebrow{
+  text-transform:uppercase;letter-spacing:.32em;font-size:11.5px;
+  color:var(--gold);font-weight:600;margin-bottom:18px;
+}
+h2{
+  font-family:'Fraunces',serif;font-weight:600;
+  font-size:clamp(30px,4.8vw,48px);
+  color:var(--pine);line-height:1.1;letter-spacing:-.015em;
+  margin-bottom:20px;
+}
+h2 .accent{color:var(--gold);font-style:italic;}
+.lead{
+  color:var(--ink-soft);font-size:clamp(16px,1.8vw,18.5px);
+  max-width:640px;line-height:1.65;
+}
 
-  /* ============ PROBLEM SECTION ============ */
-  .problem{background:var(--bone-warm);}
-  .problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-  @media(max-width:900px){.problem-inner{grid-template-columns:1fr;gap:50px;}}
-  .problem-quote{
-    background:#fff;border-left:4px solid var(--gold);
-    padding:32px 34px;border-radius:6px;
-    box-shadow:0 22px 44px -32px rgba(31,61,46,.25);
-    position:relative;
-  }
-  .problem-quote::before{
-    content:"“";position:absolute;top:-20px;left:20px;
-    font-family:'Fraunces',serif;font-size:80px;color:var(--gold);opacity:.4;line-height:1;
-  }
-  .problem-quote p{font-family:'Fraunces',serif;font-size:22px;color:var(--pine);line-height:1.35;font-style:italic;font-weight:500;}
-  .problem-quote .attr{margin-top:18px;font-size:13px;color:var(--stone);letter-spacing:.05em;font-style:normal;font-family:'Outfit',sans-serif;font-weight:500;}
+/* ============ PROBLEM SECTION ============ */
+.problem{background:var(--bone-warm);}
+.problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+@media(max-width:900px){.problem-inner{grid-template-columns:1fr;gap:50px;}}
+.problem-quote{
+  background:#fff;border-left:4px solid var(--gold);
+  padding:32px 34px;border-radius:6px;
+  box-shadow:0 22px 44px -32px rgba(31,61,46,.25);
+  position:relative;
+}
+.problem-quote::before{
+  content:"“";position:absolute;top:-20px;left:20px;
+  font-family:'Fraunces',serif;font-size:80px;color:var(--gold);opacity:.4;line-height:1;
+}
+.problem-quote p{font-family:'Fraunces',serif;font-size:22px;color:var(--pine);line-height:1.35;font-style:italic;font-weight:500;}
+.problem-quote .attr{margin-top:18px;font-size:13px;color:var(--stone);letter-spacing:.05em;font-style:normal;font-family:'Outfit',sans-serif;font-weight:500;}
 
-  /* ============ HOW IT WORKS ============ */
-  .how{background:var(--bone);}
-  .how-header{text-align:center;max-width:700px;margin:0 auto 70px;}
-  .how-header .lead{margin:0 auto;}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
-  @media(max-width:820px){.steps{grid-template-columns:1fr;}}
-  .step{
-    background:#fff;border-radius:20px;padding:38px 32px;
-    border:1px solid rgba(31,61,46,.08);
-    box-shadow:0 24px 48px -36px rgba(31,61,46,.35);
-    transition:transform .2s;
-  }
-  .step:hover{transform:translateY(-4px);}
-  .step-num{
-    font-family:'Fraunces',serif;font-size:14px;font-weight:600;
-    color:var(--gold);letter-spacing:.24em;margin-bottom:20px;
-  }
-  .step-icon{width:52px;height:52px;background:var(--pine);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
-  .step h3{font-family:'Fraunces',serif;font-size:22px;color:var(--pine);font-weight:600;margin-bottom:12px;line-height:1.25;}
-  .step p{font-size:15px;color:var(--ink-soft);line-height:1.6;}
+/* ============ HOW IT WORKS ============ */
+.how{background:var(--bone);}
+.how-header{text-align:center;max-width:700px;margin:0 auto 70px;}
+.how-header .lead{margin:0 auto;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+@media(max-width:820px){.steps{grid-template-columns:1fr;}}
+.step{
+  background:#fff;border-radius:20px;padding:38px 32px;
+  border:1px solid rgba(31,61,46,.08);
+  box-shadow:0 24px 48px -36px rgba(31,61,46,.35);
+  transition:transform .2s;
+}
+.step:hover{transform:translateY(-4px);}
+.step-num{
+  font-family:'Fraunces',serif;font-size:14px;font-weight:600;
+  color:var(--gold);letter-spacing:.24em;margin-bottom:20px;
+}
+.step-icon{width:52px;height:52px;background:var(--pine);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+.step h3{font-family:'Fraunces',serif;font-size:22px;color:var(--pine);font-weight:600;margin-bottom:12px;line-height:1.25;}
+.step p{font-size:15px;color:var(--ink-soft);line-height:1.6;}
 
-  /* ============ VERIFIED BADGE SECTION ============ */
-  .verified{background:var(--pine-deep);color:var(--bone);position:relative;overflow:hidden;}
-  .verified::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(circle at 80% 20%, rgba(201,162,39,.12), transparent 50%);
-    pointer-events:none;
-  }
-  .verified-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
-  @media(max-width:900px){.verified-inner{grid-template-columns:1fr;gap:50px;text-align:center;}.verified-inner .seal-wrap{order:-1;}}
-  .verified h2{color:var(--bone);}
-  .verified h2 .accent{color:var(--gold);}
-  .verified .section-eyebrow{color:var(--gold);}
-  .verified p{color:rgba(244,241,234,.78);font-size:17px;line-height:1.7;margin-bottom:16px;}
-  .verified p strong{color:var(--bone);}
-  .verified-features{list-style:none;margin-top:26px;}
-  .verified-features li{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;color:rgba(244,241,234,.85);font-size:15.5px;}
-  .verified-features li svg{flex-shrink:0;margin-top:3px;}
-  .seal-wrap{display:flex;justify-content:center;}
+/* ============ VERIFIED BADGE SECTION ============ */
+.verified{background:var(--pine-deep);color:var(--bone);position:relative;overflow:hidden;}
+.verified::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%, rgba(201,162,39,.12), transparent 50%);
+  pointer-events:none;
+}
+.verified-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+@media(max-width:900px){.verified-inner{grid-template-columns:1fr;gap:50px;text-align:center;}.verified-inner .seal-wrap{order:-1;}}
+.verified h2{color:var(--bone);}
+.verified h2 .accent{color:var(--gold);}
+.verified .section-eyebrow{color:var(--gold);}
+.verified p{color:rgba(244,241,234,.78);font-size:17px;line-height:1.7;margin-bottom:16px;}
+.verified p strong{color:var(--bone);}
+.verified-features{list-style:none;margin-top:26px;}
+.verified-features li{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;color:rgba(244,241,234,.85);font-size:15.5px;}
+.verified-features li svg{flex-shrink:0;margin-top:3px;}
+.seal-wrap{display:flex;justify-content:center;}
 
-  /* ============ FOR WHOM ============ */
-  .for-whom{background:var(--bone);}
-  .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px;}
-  @media(max-width:900px){.who-grid{grid-template-columns:1fr;}}
-  .who{
-    background:#fff;border-radius:20px;padding:36px 30px;
-    border:1px solid rgba(31,61,46,.08);position:relative;overflow:hidden;
-    transition:transform .2s, box-shadow .2s;
-  }
-  .who:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(31,61,46,.3);}
-  .who-tag{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;}
-  .who h3{font-family:'Fraunces',serif;font-size:24px;color:var(--pine);font-weight:600;margin-bottom:14px;line-height:1.2;}
-  .who p{color:var(--ink-soft);font-size:15px;line-height:1.6;margin-bottom:20px;}
-  .who ul{list-style:none;}
-  .who ul li{font-size:14px;color:var(--ink-soft);padding:6px 0;padding-left:22px;position:relative;line-height:1.5;}
-  .who ul li::before{
-    content:"";position:absolute;left:0;top:12px;
-    width:12px;height:2px;background:var(--gold);border-radius:2px;
-  }
+/* ============ FOR WHOM ============ */
+.for-whom{background:var(--bone);}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px;}
+@media(max-width:900px){.who-grid{grid-template-columns:1fr;}}
+.who{
+  background:#fff;border-radius:20px;padding:36px 30px;
+  border:1px solid rgba(31,61,46,.08);position:relative;overflow:hidden;
+  transition:transform .2s, box-shadow .2s;
+}
+.who:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(31,61,46,.3);}
+.who-tag{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;}
+.who h3{font-family:'Fraunces',serif;font-size:24px;color:var(--pine);font-weight:600;margin-bottom:14px;line-height:1.2;}
+.who p{color:var(--ink-soft);font-size:15px;line-height:1.6;margin-bottom:20px;}
+.who ul{list-style:none;}
+.who ul li{font-size:14px;color:var(--ink-soft);padding:6px 0;padding-left:22px;position:relative;line-height:1.5;}
+.who ul li::before{
+  content:"";position:absolute;left:0;top:12px;
+  width:12px;height:2px;background:var(--gold);border-radius:2px;
+}
 
-  /* ============ PRINCIPLES ============ */
-  .principles{background:var(--pine);color:var(--bone);}
-  .principles h2{color:var(--bone);}
-  .principles h2 .accent{color:var(--gold);}
-  .principles .section-eyebrow{color:var(--gold);}
-  .principles .lead{color:rgba(244,241,234,.75);}
-  .principle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:56px;}
-  @media(max-width:820px){.principle-grid{grid-template-columns:1fr;}}
-  .principle{
-    background:rgba(244,241,234,.04);border:1px solid rgba(201,162,39,.18);
-    border-radius:16px;padding:32px;
-    transition:border-color .2s;
-  }
-  .principle:hover{border-color:rgba(201,162,39,.4);}
-  .principle-num{font-family:'Fraunces',serif;font-size:44px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:16px;opacity:.9;}
-  .principle h3{font-family:'Fraunces',serif;font-size:20px;color:var(--bone);margin-bottom:10px;font-weight:600;}
-  .principle p{color:rgba(244,241,234,.7);font-size:14.5px;line-height:1.6;}
+/* ============ PRINCIPLES ============ */
+.principles{background:var(--pine);color:var(--bone);}
+.principles h2{color:var(--bone);}
+.principles h2 .accent{color:var(--gold);}
+.principles .section-eyebrow{color:var(--gold);}
+.principles .lead{color:rgba(244,241,234,.75);}
+.principle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:56px;}
+@media(max-width:820px){.principle-grid{grid-template-columns:1fr;}}
+.principle{
+  background:rgba(244,241,234,.04);border:1px solid rgba(201,162,39,.18);
+  border-radius:16px;padding:32px;
+  transition:border-color .2s;
+}
+.principle:hover{border-color:rgba(201,162,39,.4);}
+.principle-num{font-family:'Fraunces',serif;font-size:44px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:16px;opacity:.9;}
+.principle h3{font-family:'Fraunces',serif;font-size:20px;color:var(--bone);margin-bottom:10px;font-weight:600;}
+.principle p{color:rgba(244,241,234,.7);font-size:14.5px;line-height:1.6;}
 
-  /* ============ WAITLIST ============ */
-  .waitlist{background:var(--bone-warm);text-align:center;}
-  .waitlist-inner{max-width:640px;margin:0 auto;}
-  .waitlist .lead{margin:0 auto 40px;}
-  .form-card{
-    background:#fff;padding:40px 40px 36px;border-radius:20px;
-    box-shadow:0 30px 60px -40px rgba(31,61,46,.35);
-    border:1px solid rgba(31,61,46,.08);
-  }
-  @media(max-width:640px){.form-card{padding:32px 24px 28px;}}
-  .field{display:flex;flex-direction:column;text-align:left;margin-bottom:18px;}
-  .field label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pine);font-weight:600;margin-bottom:8px;}
-  .field input, .field select{
-    padding:14px 16px;border:1.5px solid rgba(31,61,46,.15);border-radius:10px;
-    font-family:inherit;font-size:15px;color:var(--ink);background:#fff;
-    transition:border-color .15s;
-  }
-  .field input:focus, .field select:focus{outline:none;border-color:var(--gold);}
-  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media(max-width:520px){.field-row{grid-template-columns:1fr;}}
-  .submit-btn{
-    width:100%;background:var(--pine);color:var(--bone);
-    padding:16px 24px;border:none;border-radius:12px;
-    font-family:inherit;font-weight:600;font-size:15.5px;letter-spacing:.02em;
-    cursor:pointer;transition:background .15s,transform .15s;
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    margin-top:10px;
-  }
-  .submit-btn:hover{background:var(--pine-deep);transform:translateY(-1px);}
-  .fine-print{font-size:12.5px;color:var(--stone);margin-top:18px;line-height:1.5;}
-  .success-msg{
-    display:none;padding:24px;background:rgba(201,162,39,.1);
-    border:1px solid var(--gold);border-radius:12px;color:var(--pine);
-    font-size:15px;line-height:1.5;
-  }
-  .success-msg strong{color:var(--gold-dim);}
+/* ============ WAITLIST ============ */
+.waitlist{background:var(--bone-warm);text-align:center;}
+.waitlist-inner{max-width:640px;margin:0 auto;}
+.waitlist .lead{margin:0 auto 40px;}
+.form-card{
+  background:#fff;padding:40px 40px 36px;border-radius:20px;
+  box-shadow:0 30px 60px -40px rgba(31,61,46,.35);
+  border:1px solid rgba(31,61,46,.08);
+}
+@media(max-width:640px){.form-card{padding:32px 24px 28px;}}
+.field{display:flex;flex-direction:column;text-align:left;margin-bottom:18px;}
+.field label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pine);font-weight:600;margin-bottom:8px;}
+.field input, .field select{
+  padding:14px 16px;border:1.5px solid rgba(31,61,46,.15);border-radius:10px;
+  font-family:inherit;font-size:15px;color:var(--ink);background:#fff;
+  transition:border-color .15s;
+}
+.field input:focus, .field select:focus{outline:none;border-color:var(--gold);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+.submit-btn{
+  width:100%;background:var(--pine);color:var(--bone);
+  padding:16px 24px;border:none;border-radius:12px;
+  font-family:inherit;font-weight:600;font-size:15.5px;letter-spacing:.02em;
+  cursor:pointer;transition:background .15s,transform .15s;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:10px;
+}
+.submit-btn:hover{background:var(--pine-deep);transform:translateY(-1px);}
+.fine-print{font-size:12.5px;color:var(--stone);margin-top:18px;line-height:1.5;}
+.success-msg{
+  display:none;padding:24px;background:rgba(201,162,39,.1);
+  border:1px solid var(--gold);border-radius:12px;color:var(--pine);
+  font-size:15px;line-height:1.5;
+}
+.success-msg strong{color:var(--gold-dim);}
 
-  /* ============ FOOTER ============ */
-  footer{background:var(--pine-deep);color:rgba(244,241,234,.6);padding:60px 32px 40px;text-align:center;}
-  .footer-mark{margin-bottom:18px;display:flex;justify-content:center;}
-  .footer-brand{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--bone);margin-bottom:10px;}
-  .footer-tag{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:34px;}
-  .footer-links{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;font-size:14px;}
-  .footer-links a{color:rgba(244,241,234,.65);text-decoration:none;transition:color .15s;}
-  .footer-links a:hover{color:var(--gold);}
-  .footer-fine{font-size:12px;color:rgba(244,241,234,.4);letter-spacing:.05em;max-width:560px;margin:0 auto;line-height:1.6;}
+/* ============ FOOTER ============ */
+footer{background:var(--pine-deep);color:rgba(244,241,234,.6);padding:60px 32px 40px;text-align:center;}
+.footer-mark{margin-bottom:18px;display:flex;justify-content:center;}
+.footer-brand{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--bone);margin-bottom:10px;}
+.footer-tag{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:34px;}
+.footer-links{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;font-size:14px;}
+.footer-links a{color:rgba(244,241,234,.65);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-fine{font-size:12px;color:rgba(244,241,234,.4);letter-spacing:.05em;max-width:560px;margin:0 auto;line-height:1.6;}
 
-  /* mobile nav simplification */
-  @media(max-width:520px){.nav-cta{padding:8px 14px;font-size:13px;}.brand-text{font-size:19px;}}
-  .founding-seal{display:block;margin:0 auto 22px;width:132px;height:132px;}
-  @media (max-width:640px){.founding-seal{width:112px;height:112px;}}
+/* mobile nav simplification */
+@media(max-width:520px){.nav-cta{padding:8px 14px;font-size:13px;}.brand-text{font-size:19px;}.nav-right{gap:12px;}.nav-signin{font-size:13px;}}
+.founding-seal{display:block;margin:0 auto 22px;width:132px;height:132px;}
+@media (max-width:640px){.founding-seal{width:112px;height:112px;}}
 </style>
 </head>
 <body>
 
-  <!-- ============ NAV ============ -->
-  <nav>
-    <div class="nav-inner">
-      <a href="#" class="brand">
-        <span class="brand-mark">
-          <svg width="26" height="26" viewBox="0 0 120 120" fill="none"><path d="M30 52 L52 86 L98 26" stroke="#C9A227" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="brand-text">Vouch<span class="cap">T</span>erra</span>
-      </a>
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <span class="brand-mark">
+        <svg width="26" height="26" viewBox="0 0 120 120" fill="none"><path d="M30 52 L52 86 L98 26" stroke="#C9A227" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="brand-text">Vouch<span class="cap">T</span>erra</span>
+    </a>
+    <div class="nav-right">
+      <a href="https://vouchterra-app.vercel.app/login" class="nav-signin">Sign in</a>
       <a href="/join.html" class="nav-cta">Claim your spot →</a>
     </div>
-  </nav>
-
-  <!-- ============ HERO ============ -->
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-mark-large">
-        <svg width="76" height="76" viewBox="0 0 120 120" fill="none">
-          <path d="M30 52 L52 86 L98 26" stroke="#F4F1EA" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="eyebrow"><span class="eyebrow-dot"></span> Founding Members · Now Onboarding</div>
-      <h1 class="hero-title">The trust layer for<br>real estate<span class="accent">.</span></h1>
-      <p class="hero-sub">Every agent and vendor on VouchTerra is backed by real transactions and honest ratings — so you always know who to trust before you refer.</p>
-      <div class="cta-row">
-        <a href="/join.html" class="btn btn-primary">Become a Founding Member →</a>
-        <a href="#how" class="btn btn-ghost">How it works</a>
-      </div>
-      <div class="hero-tagline">Verified ground to build on</div>
-    </div>
   </div>
+</nav>
 
-  <!-- ============ PROOF BAR ============ -->
-  <div class="proof-bar">
-    Built by real estate professionals · <strong>For</strong> real estate professionals · No pay-to-play
-  </div>
-
-  <!-- ============ PROBLEM ============ -->
-  <section class="problem">
-    <div class="wrap">
-      <div class="problem-inner">
-        <div>
-          <div class="section-eyebrow">The Problem</div>
-          <h2>You&#8217;re only as good as who you <span class="accent">refer.</span></h2>
-          <p class="lead">The barrier to entry in real estate is low. Accountability is lower. Referrals happen on gut feel, hearsay, and hope — and one bad referral can cost you a client, a reputation, or a deal.</p>
-          <p class="lead" style="margin-top:18px;">There has never been a real, industry-internal way to know who&#8217;s actually competent, ethical, and worth trusting.</p>
-          <p class="lead" style="margin-top:18px;"><strong style="color:var(--pine);">Until now.</strong></p>
-        </div>
-        <div>
-          <div class="problem-quote">
-            <p>Who you refer says everything about you. The problem is nobody has real data on who&#8217;s actually good — just Facebook groups, guesswork, and the same names getting passed around.</p>
-            <div class="attr">— The reason VouchTerra exists</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ HOW IT WORKS ============ -->
-  <section class="how" id="how">
-    <div class="wrap">
-      <div class="how-header">
-        <div class="section-eyebrow">How It Works</div>
-        <h2>Referrals in. Reputation <span class="accent">out.</span></h2>
-        <p class="lead">A simple loop that turns the work you&#8217;re already doing into a trusted, verifiable track record.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <div class="step-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          </div>
-          <h3>Log every referral</h3>
-          <p>Track who you refer, to whom, for what deal, and the fee. No more spreadsheets, missed follow-ups, or lost payments.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <div class="step-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          </div>
-          <h3>Rate when it closes</h3>
-          <p>Only professionals who actually transacted with someone can rate them. Ratings tied to real deals — never to bought reviews or self-promotion.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <div class="step-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 6-6"/></svg>
-          </div>
-          <h3>Earn your reputation</h3>
-          <p>Verified track record becomes a badge you can display, a directory listing others can find, and a signal that outlasts any single deal.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ VERIFIED BADGE ============ -->
-  <section class="verified">
-    <div class="wrap">
-      <div class="verified-inner">
-        <div>
-          <div class="section-eyebrow">The Badge</div>
-          <h2>Earned, never <span class="accent">bought.</span></h2>
-          <p>The <strong>VouchTerra Verified</strong> seal is the credential every real estate professional can wear — from a one-truck home inspector to a 200-agent brokerage.</p>
-          <p>It&#8217;s the single most important rule we live by: <strong>the badge is never for sale.</strong> You can earn it, you can display it, you can&#8217;t buy it. That&#8217;s what makes it mean something.</p>
-          <ul class="verified-features">
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Tied to verified transactions</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Backed by honest, first-hand ratings</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Free to earn. Free to display.</li>
-          </ul>
-        </div>
-        <div class="seal-wrap">
-          <svg width="240" height="240" viewBox="0 0 200 200" fill="none">
-            <circle cx="100" cy="100" r="92" stroke="#C9A227" stroke-width="3"/>
-            <circle cx="100" cy="100" r="81" stroke="#C9A227" stroke-width="1.4" opacity="0.5"/>
-            <path d="M72 74 L98 128" stroke="#F4F1EA" stroke-width="11" stroke-linecap="round"/>
-            <path d="M98 128 L142 56" stroke="#C9A227" stroke-width="11" stroke-linecap="round"/>
-            <path id="botArc" d="M48 108 A52 52 0 0 0 152 108" fill="none"/>
-            <text fill="#F4F1EA" font-family="Fraunces, serif" font-size="12" letter-spacing="3.5" font-weight="600">
-              <textPath href="#botArc" startOffset="50%" text-anchor="middle">VERIFIED</textPath>
-            </text>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FOR WHOM ============ -->
-  <section class="for-whom">
-    <div class="wrap">
-      <div style="text-align:center;max-width:700px;margin:0 auto;">
-        <div class="section-eyebrow">Who It&#8217;s For</div>
-        <h2>The whole ecosystem, <span class="accent">verified.</span></h2>
-        <p class="lead" style="margin:0 auto;">VouchTerra is the internal network for every professional whose work touches a real estate transaction. Different roles, one standard.</p>
-      </div>
-
-      <div class="who-grid">
-        <div class="who">
-          <div class="who-tag">Agents &amp; Brokers</div>
-          <h3>Refer with confidence.</h3>
-          <p>Stop losing referral fees to forgotten follow-ups. Stop referring people you&#8217;ll regret. Build a bench you actually trust.</p>
-          <ul>
-            <li>Track every referral in one place</li>
-            <li>Never lose a fee or a follow-up</li>
-            <li>Private notes on who did great work</li>
-          </ul>
-        </div>
-        <div class="who">
-          <div class="who-tag">Vendors &amp; Service Providers</div>
-          <h3>Earn your reputation.</h3>
-          <p>Inspectors, lenders, TCs, photographers, contractors, stagers — build a verified track record agents can find you by.</p>
-          <ul>
-            <li>Free profile backed by real deals</li>
-            <li>Earn the Verified badge</li>
-            <li>Get found by agents who need you</li>
-          </ul>
-        </div>
-        <div class="who">
-          <div class="who-tag">Brokerages &amp; Teams</div>
-          <h3>Set the standard.</h3>
-          <p>Enforce vetted-vendor standards across your whole team. Protect your brand from the person your agents just referred.</p>
-          <ul>
-            <li>Manage your team&#8217;s trusted network</li>
-            <li>Compliance &amp; reporting tools</li>
-            <li>Standards that scale with you</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PRINCIPLES ============ -->
-  <section class="principles">
-    <div class="wrap">
-      <div style="text-align:center;max-width:700px;margin:0 auto;">
-        <div class="section-eyebrow">What Makes Us Different</div>
-        <h2>Four principles we <span class="accent">won&#8217;t break.</span></h2>
-        <p class="lead" style="margin:0 auto;">A trust platform lives or dies by what it refuses to compromise. Here&#8217;s what we&#8217;ll never do.</p>
-      </div>
-
-      <div class="principle-grid">
-        <div class="principle">
-          <div class="principle-num">01</div>
-          <h3>The badge is never for sale.</h3>
-          <p>You can&#8217;t buy Verified. You can&#8217;t buy Trusted. You can&#8217;t buy Elite. Every credential is earned through verified transactions and honest ratings — or it isn&#8217;t real.</p>
-        </div>
-        <div class="principle">
-          <div class="principle-num">02</div>
-          <h3>Only real transactions rate.</h3>
-          <p>No anonymous complaints. No sockpuppet reviews. If you haven&#8217;t actually done a deal with someone, you can&#8217;t rate them. That&#8217;s what makes our ratings worth something.</p>
-        </div>
-        <div class="principle">
-          <div class="principle-num">03</div>
-          <h3>Ads never touch ratings.</h3>
-          <p>Promoted placement is clearly labeled and always separate from organic rankings. Paying us more never changes what people say about your work.</p>
-        </div>
-        <div class="principle">
-          <div class="principle-num">04</div>
-          <h3>The base network is free forever.</h3>
-          <p>Every professional gets a free profile, referral tracking, and access to the network. Trust needs density to work — and density needs free.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ WAITLIST ============ -->
-  <section class="waitlist" id="waitlist">
-    <div class="wrap">
-      <div class="waitlist-inner">
-        <svg class="founding-seal" viewBox="0 0 200 200" fill="none" role="img" aria-label="Founding Member seal, numbered 1 of 10">
-          <circle cx="100" cy="100" r="92" stroke="#C9A227" stroke-width="3"/>
-          <circle cx="100" cy="100" r="81" stroke="#C9A227" stroke-width="1.4" opacity="0.5"/>
-          <path d="M70 90 L92 134" stroke="#1F3D2E" stroke-width="11" stroke-linecap="round"/>
-          <path d="M92 134 L128 74" stroke="#C9A227" stroke-width="11" stroke-linecap="round"/>
-          <path id="foundingArc" d="M44 100 A56 56 0 0 1 156 100" fill="none"/>
-          <text fill="#8a6f12" font-family="Fraunces, Georgia, serif" font-size="11" letter-spacing="3.2" font-weight="600"><textPath href="#foundingArc" startOffset="50%" text-anchor="middle">FOUNDING MEMBER</textPath></text>
-          <text x="100" y="160" fill="#1F3D2E" font-family="Fraunces, Georgia, serif" font-size="10.5" letter-spacing="2.2" font-weight="600" text-anchor="middle">No. 01 / 10</text>
-        </svg>
-        <div class="section-eyebrow">Founding Members</div>
-        <h2>Get in <span class="accent">early.</span></h2>
-        <p class="lead">Founding members get lifetime Pro access, a founding-badge status you keep forever, and a direct line to the team as we build. Limited to the first 10.</p>
-        <a href="/join.html" class="btn btn-primary" style="margin-bottom:14px">Claim your founding spot →</a>
-        <p class="fine-print" style="margin:0 0 28px">One tap with Google or email. Or join the waitlist below and we'll reach out.</p>
-
-        <div class="form-card">
-          <form id="waitlist-form" action="https://formspree.io/f/xeaqkllg" method="POST">
-            <div class="field-row">
-              <div class="field">
-                <label for="fname">First Name</label>
-                <input type="text" id="fname" name="First Name" required>
-              </div>
-              <div class="field">
-                <label for="lname">Last Name</label>
-                <input type="text" id="lname" name="Last Name" required>
-              </div>
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="Email" required>
-            </div>
-            <!-- Honeypot: bots fill this, humans never see it; Formspree discards non-empty _gotcha -->
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
-            <div class="field-row">
-              <div class="field">
-                <label for="role">I&#8217;m a...</label>
-                <select id="role" name="Role" required>
-                  <option value="">Select one</option>
-                  <option>Real Estate Agent / Broker</option>
-                  <option>Brokerage / Team Leader</option>
-                  <option>Lender</option>
-                  <option>Title / Escrow</option>
-                  <option>Home Inspector</option>
-                  <option>Transaction Coordinator</option>
-                  <option>Photographer / Videographer</option>
-                  <option>Contractor / Remodeler</option>
-                  <option>Property Manager</option>
-                  <option>Stager / Designer</option>
-                  <option>Other Vendor</option>
-                  <option>Consumer / Curious</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="market">Market (City)</label>
-                <input type="text" id="market" name="Market" placeholder="e.g. Seattle, WA" required>
-              </div>
-            </div>
-            <button type="submit" class="submit-btn">
-              Join the Waitlist
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
-            <p class="fine-print">We&#8217;ll email you when your market opens. No spam. Ever.</p>
-          </form>
-
-          <div class="success-msg" id="success-msg">
-            <strong>You&#8217;re in.</strong><br>
-            We&#8217;ll be in touch when VouchTerra opens in your market. Welcome to the founding class.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer>
-    <div class="footer-mark">
-      <svg width="42" height="42" viewBox="0 0 120 120" fill="none">
-        <path d="M30 52 L52 86 L98 26" stroke="#C9A227" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-mark-large">
+      <svg width="76" height="76" viewBox="0 0 120 120" fill="none">
+        <path d="M30 52 L52 86 L98 26" stroke="#F4F1EA" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <div class="footer-brand">VouchTerra</div>
-    <div class="footer-tag">Verified ground to build on</div>
-    <div class="footer-links">
-      <a href="#how">How it works</a>
-      <a href="#waitlist">Join</a>
-      <a href="tel:+12065671542">(206) 567-1542</a>
-      <a href="mailto:go@vouchterra.com">go@vouchterra.com</a>
+    <div class="eyebrow"><span class="eyebrow-dot"></span> Founding Members · Now Onboarding</div>
+    <h1 class="hero-title">The trust layer for<br>real estate<span class="accent">.</span></h1>
+    <p class="hero-sub">Every agent and vendor on VouchTerra is backed by real transactions and honest ratings — so you always know who to trust before you refer.</p>
+    <div class="cta-row">
+      <a href="/join.html" class="btn btn-primary">Become a Founding Member →</a>
+      <a href="#how" class="btn btn-ghost">How it works</a>
     </div>
-    <p class="footer-fine">© <span id="year"></span> VouchTerra. All rights reserved. Building the trust layer for real estate, one verified transaction at a time.</p>
-  </footer>
+    <div class="hero-tagline">Verified ground to build on</div>
+  </div>
+</div>
 
-  <script>
-    // Auto-update year
-    document.getElementById('year').textContent = new Date().getFullYear();
+<!-- ============ PROOF BAR ============ -->
+<div class="proof-bar">
+  Built by real estate professionals · <strong>For</strong> real estate professionals · No pay-to-play
+</div>
 
-    // Handle form submission with AJAX to show success message without page reload
-    const form = document.getElementById('waitlist-form');
-    const successMsg = document.getElementById('success-msg');
+<!-- ============ PROBLEM ============ -->
+<section class="problem">
+  <div class="wrap">
+    <div class="problem-inner">
+      <div>
+        <div class="section-eyebrow">The Problem</div>
+        <h2>You&#8217;re only as good as who you <span class="accent">refer.</span></h2>
+        <p class="lead">The barrier to entry in real estate is low. Accountability is lower. Referrals happen on gut feel, hearsay, and hope — and one bad referral can cost you a client, a reputation, or a deal.</p>
+        <p class="lead" style="margin-top:18px;">There has never been a real, industry-internal way to know who&#8217;s actually competent, ethical, and worth trusting.</p>
+        <p class="lead" style="margin-top:18px;"><strong style="color:var(--pine);">Until now.</strong></p>
+      </div>
+      <div>
+        <div class="problem-quote">
+          <p>Who you refer says everything about you. The problem is nobody has real data on who&#8217;s actually good — just Facebook groups, guesswork, and the same names getting passed around.</p>
+          <div class="attr">— The reason VouchTerra exists</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const action = form.getAttribute('action');
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-header">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Referrals in. Reputation <span class="accent">out.</span></h2>
+      <p class="lead">A simple loop that turns the work you&#8217;re already doing into a trusted, verifiable track record.</p>
+    </div>
 
-      // If Formspree endpoint hasn't been configured yet, just show success (for local preview)
-      if (action.includes('YOUR_FORMSPREE_ID')) {
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
-        console.log('Form submitted (demo mode — configure Formspree to capture emails):', Object.fromEntries(formData));
-        return;
-      }
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <h3>Log every referral</h3>
+        <p>Track who you refer, to whom, for what deal, and the fee. No more spreadsheets, missed follow-ups, or lost payments.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h3>Rate when it closes</h3>
+        <p>Only professionals who actually transacted with someone can rate them. Ratings tied to real deals — never to bought reviews or self-promotion.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 6-6"/></svg>
+        </div>
+        <h3>Earn your reputation</h3>
+        <p>Verified track record becomes a badge you can display, a directory listing others can find, and a signal that outlasts any single deal.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      try {
-        const response = await fetch(action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-          form.style.display = 'none';
-          successMsg.style.display = 'block';
-        } else {
-          alert('Something went wrong. Please try again or call (206) 567-1542.');
-        }
-      } catch (err) {
-        alert('Network error. Please try again or call (206) 567-1542.');
-      }
+<!-- ============ VERIFIED BADGE ============ -->
+<section class="verified">
+  <div class="wrap">
+    <div class="verified-inner">
+      <div>
+        <div class="section-eyebrow">The Badge</div>
+        <h2>Earned, never <span class="accent">bought.</span></h2>
+        <p>The <strong>VouchTerra Verified</strong> seal is the credential every real estate professional can wear — from a one-truck home inspector to a 200-agent brokerage.</p>
+        <p>It&#8217;s the single most important rule we live by: <strong>the badge is never for sale.</strong> You can earn it, you can display it, you can&#8217;t buy it. That&#8217;s what makes it mean something.</p>
+        <ul class="verified-features">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Tied to verified transactions</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Backed by honest, first-hand ratings</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Free to earn. Free to display.</li>
+        </ul>
+      </div>
+      <div class="seal-wrap">
+        <svg width="240" height="240" viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="92" stroke="#C9A227" stroke-width="3"/>
+          <circle cx="100" cy="100" r="81" stroke="#C9A227" stroke-width="1.4" opacity="0.5"/>
+          <path d="M72 74 L98 128" stroke="#F4F1EA" stroke-width="11" stroke-linecap="round"/>
+          <path d="M98 128 L142 56" stroke="#C9A227" stroke-width="11" stroke-linecap="round"/>
+          <path id="botArc" d="M48 108 A52 52 0 0 0 152 108" fill="none"/>
+          <text fill="#F4F1EA" font-family="Fraunces, serif" font-size="12" letter-spacing="3.5" font-weight="600">
+            <textPath href="#botArc" startOffset="50%" text-anchor="middle">VERIFIED</textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR WHOM ============ -->
+<section class="for-whom">
+  <div class="wrap">
+    <div style="text-align:center;max-width:700px;margin:0 auto;">
+      <div class="section-eyebrow">Who It&#8217;s For</div>
+      <h2>The whole ecosystem, <span class="accent">verified.</span></h2>
+      <p class="lead" style="margin:0 auto;">VouchTerra is the internal network for every professional whose work touches a real estate transaction. Different roles, one standard.</p>
+    </div>
+
+    <div class="who-grid">
+      <div class="who">
+        <div class="who-tag">Agents &amp; Brokers</div>
+        <h3>Refer with confidence.</h3>
+        <p>Stop losing referral fees to forgotten follow-ups. Stop referring people you&#8217;ll regret. Build a bench you actually trust.</p>
+        <ul>
+          <li>Track every referral in one place</li>
+          <li>Never lose a fee or a follow-up</li>
+          <li>Private notes on who did great work</li>
+        </ul>
+      </div>
+      <div class="who">
+        <div class="who-tag">Vendors &amp; Service Providers</div>
+        <h3>Earn your reputation.</h3>
+        <p>Inspectors, lenders, TCs, photographers, contractors, stagers — build a verified track record agents can find you by.</p>
+        <ul>
+          <li>Free profile backed by real deals</li>
+          <li>Earn the Verified badge</li>
+          <li>Get found by agents who need you</li>
+        </ul>
+      </div>
+      <div class="who">
+        <div class="who-tag">Brokerages &amp; Teams</div>
+        <h3>Set the standard.</h3>
+        <p>Enforce vetted-vendor standards across your whole team. Protect your brand from the person your agents just referred.</p>
+        <ul>
+          <li>Manage your team&#8217;s trusted network</li>
+          <li>Compliance &amp; reporting tools</li>
+          <li>Standards that scale with you</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="principles">
+  <div class="wrap">
+    <div style="text-align:center;max-width:700px;margin:0 auto;">
+      <div class="section-eyebrow">What Makes Us Different</div>
+      <h2>Four principles we <span class="accent">won&#8217;t break.</span></h2>
+      <p class="lead" style="margin:0 auto;">A trust platform lives or dies by what it refuses to compromise. Here&#8217;s what we&#8217;ll never do.</p>
+    </div>
+
+    <div class="principle-grid">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <h3>The badge is never for sale.</h3>
+        <p>You can&#8217;t buy Verified. You can&#8217;t buy Trusted. You can&#8217;t buy Elite. Every credential is earned through verified transactions and honest ratings — or it isn&#8217;t real.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <h3>Only real transactions rate.</h3>
+        <p>No anonymous complaints. No sockpuppet reviews. If you haven&#8217;t actually done a deal with someone, you can&#8217;t rate them. That&#8217;s what makes our ratings worth something.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <h3>Ads never touch ratings.</h3>
+        <p>Promoted placement is clearly labeled and always separate from organic rankings. Paying us more never changes what people say about your work.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <h3>The base network is free forever.</h3>
+        <p>Every professional gets a free profile, referral tracking, and access to the network. Trust needs density to work — and density needs free.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WAITLIST ============ -->
+<section class="waitlist" id="waitlist">
+  <div class="wrap">
+    <div class="waitlist-inner">
+      <svg class="founding-seal" viewBox="0 0 200 200" fill="none" role="img" aria-label="Founding Member seal, numbered 1 of 100">
+        <circle cx="100" cy="100" r="92" stroke="#C9A227" stroke-width="3"/>
+        <circle cx="100" cy="100" r="81" stroke="#C9A227" stroke-width="1.4" opacity="0.5"/>
+        <path d="M70 90 L92 134" stroke="#1F3D2E" stroke-width="11" stroke-linecap="round"/>
+        <path d="M92 134 L128 74" stroke="#C9A227" stroke-width="11" stroke-linecap="round"/>
+        <path id="foundingArc" d="M44 100 A56 56 0 0 1 156 100" fill="none"/>
+        <text fill="#8a6f12" font-family="Fraunces, Georgia, serif" font-size="11" letter-spacing="3.2" font-weight="600"><textPath href="#foundingArc" startOffset="50%" text-anchor="middle">FOUNDING MEMBER</textPath></text>
+        <text x="100" y="160" fill="#1F3D2E" font-family="Fraunces, Georgia, serif" font-size="10.5" letter-spacing="2.2" font-weight="600" text-anchor="middle">No. 01 / 100</text>
+      </svg>
+      <div class="section-eyebrow">Founding Members</div>
+      <h2>Get in <span class="accent">early.</span></h2>
+      <p class="lead">Founding members get lifetime Pro access, a founding-badge status you keep forever, and a direct line to the team as we build. Founding Member status goes to the first 100 members. Numbered, never re-issued.</p>
+      <a href="/join.html" class="btn btn-primary" style="margin-bottom:14px">Claim your founding spot →</a>
+      <p class="fine-print" style="margin:0 0 28px">One tap with Google or email. Or join the waitlist below and we'll reach out.</p>
+
+      <div class="form-card">
+        <form id="waitlist-form" action="https://formspree.io/f/xeaqkllg" method="POST">
+          <div class="field-row">
+            <div class="field">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="First Name" required>
+            </div>
+            <div class="field">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="Last Name" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="Email" required>
+          </div>
+          <!-- Honeypot: bots fill this, humans never see it; Formspree discards non-empty _gotcha -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+          <div class="field-row">
+            <div class="field">
+              <label for="role">I&#8217;m a...</label>
+              <select id="role" name="Role" required>
+                <option value="">Select one</option>
+                <option>Real Estate Agent / Broker</option>
+                <option>Brokerage / Team Leader</option>
+                <option>Lender</option>
+                <option>Title / Escrow</option>
+                <option>Home Inspector</option>
+                <option>Transaction Coordinator</option>
+                <option>Photographer / Videographer</option>
+                <option>Contractor / Remodeler</option>
+                <option>Property Manager</option>
+                <option>Stager / Designer</option>
+                <option>Other Vendor</option>
+                <option>Consumer / Curious</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="market">Market (City)</label>
+              <input type="text" id="market" name="Market" placeholder="e.g. Seattle, WA" required>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">
+            Join the Waitlist
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <p class="fine-print">We&#8217;ll email you when your market opens. No spam. Ever.</p>
+        </form>
+
+        <div class="success-msg" id="success-msg">
+          <strong>You&#8217;re in.</strong><br>
+          We&#8217;ll be in touch when VouchTerra opens in your market. Welcome to the founding class.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-mark">
+    <svg width="42" height="42" viewBox="0 0 120 120" fill="none">
+      <path d="M30 52 L52 86 L98 26" stroke="#C9A227" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="footer-brand">VouchTerra</div>
+  <div class="footer-tag">Verified ground to build on</div>
+  <div class="footer-links">
+    <a href="#how">How it works</a>
+    <a href="#waitlist">Join</a>
+    <a href="https://vouchterra-app.vercel.app/login">Sign in</a>
+    <a href="tel:+12065671542">(206) 567-1542</a>
+    <a href="mailto:go@vouchterra.com">go@vouchterra.com</a>
+  </div>
+  <p class="footer-fine">© <span id="year"></span> VouchTerra. All rights reserved. Building the trust layer for real estate, one verified transaction at a time.</p>
+</footer>
+
+<script>
+// Auto-update year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Handle form submission with AJAX to show success message without page reload
+const form = document.getElementById('waitlist-form');
+const successMsg = document.getElementById('success-msg');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const action = form.getAttribute('action');
+
+  // If Formspree endpoint hasn't been configured yet, just show success (for local preview)
+  if (action.includes('YOUR_FORMSPREE_ID')) {
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+    console.log('Form submitted (demo mode — configure Formspree to capture emails):', Object.fromEntries(formData));
+    return;
+  }
+
+  try {
+    const response = await fetch(action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
     });
-  </script>
+    if (response.ok) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    } else {
+      alert('Something went wrong. Please try again or call (206) 567-1542.');
+    }
+  } catch (err) {
+    alert('Network error. Please try again or call (206) 567-1542.');
+  }
+});
+</script>
 
 </body>
 </html>
