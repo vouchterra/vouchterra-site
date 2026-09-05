@@ -237,6 +237,11 @@ h2 .accent{color:var(--gold);font-style:italic;}
 .principle-num{font-family:'Fraunces',serif;font-size:44px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:16px;opacity:.9;}
 .principle h3{font-family:'Fraunces',serif;font-size:20px;color:var(--bone);margin-bottom:10px;font-weight:600;}
 .principle p{color:rgba(244,241,234,.7);font-size:14.5px;line-height:1.6;}
+.compliance{margin:44px auto 0;max-width:820px;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.35);border-radius:16px;padding:26px 30px;display:flex;gap:18px;align-items:flex-start;}
+.compliance svg{flex-shrink:0;margin-top:3px;}
+.compliance h4{font-family:'Fraunces',serif;font-size:18px;color:var(--bone);margin-bottom:8px;font-weight:600;}
+.compliance p{color:rgba(244,241,234,.78);font-size:14.5px;line-height:1.65;}
+.compliance p strong{color:var(--bone);}
 
 /* ============ WAITLIST ============ */
 .waitlist{background:var(--bone-warm);text-align:center;}
@@ -303,7 +308,7 @@ footer{background:var(--pine-deep);color:rgba(244,241,234,.6);padding:60px 32px 
       <span class="brand-text">Vouch<span class="cap">T</span>erra</span>
     </a>
     <div class="nav-right">
-      <a href="https://vouchterra-app.vercel.app/login" class="nav-signin">Sign in</a>
+      <a href="https://vouchterra-app.vercel.app/login" class="nav-signin">Sign In</a>
       <a href="/join.html" class="nav-cta">Claim your spot →</a>
     </div>
   </div>
@@ -498,6 +503,14 @@ footer{background:var(--pine-deep);color:rgba(244,241,234,.6);padding:60px 32px 
         <p>Every professional gets a free profile, referral tracking, and access to the network. Trust needs density to work — and density needs free.</p>
       </div>
     </div>
+
+    <div class="compliance">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A227" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div>
+        <h4>Built with RESPA in mind.</h4>
+        <p>VouchTerra tracks <strong>referrals and outcomes — never referral fees.</strong> There is no place in the product to record, request, or pay anything of value for a referral to a lender, title or escrow company, inspector, or any other settlement service provider, and there never will be. Reputations here are earned from completed work and honest ratings, not from what changes hands. This is a design principle, not legal advice — talk to your broker or counsel about your own obligations.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -590,11 +603,11 @@ footer{background:var(--pine-deep);color:rgba(244,241,234,.6);padding:60px 32px 
   <div class="footer-links">
     <a href="#how">How it works</a>
     <a href="#waitlist">Join</a>
-    <a href="https://vouchterra-app.vercel.app/login">Sign in</a>
+    <a href="https://vouchterra-app.vercel.app/login">Sign In</a>
     <a href="tel:+12065671542">(206) 567-1542</a>
     <a href="mailto:go@vouchterra.com">go@vouchterra.com</a>
   </div>
-  <p class="footer-fine">© <span id="year"></span> VouchTerra. All rights reserved. Building the trust layer for real estate, one verified transaction at a time.</p>
+  <p class="footer-fine">© <span id="year"></span> VouchTerra. All rights reserved. Building the trust layer for real estate, one verified transaction at a time. VouchTerra does not facilitate, track, or pay referral fees for settlement services.</p>
 </footer>
 
 <script>
