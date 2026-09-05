@@ -4,5 +4,5 @@
 window.VT_CONFIG = {
   supabaseUrl: "https://qkllltrsylsmhphqpyro.supabase.co",
   supabaseAnonKey: "sb_publishable_Y_jcPjH_YC1Nn7dSkD02iQ_3Zv5HtfG",
-  foundingLimit: 10
+  foundingLimit: 100
 };
