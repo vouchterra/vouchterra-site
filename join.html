@@ -11,6 +11,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='24' fill='%231F3D2E'/%3E%3Cpath d='M30 52 L52 86 L98 26' stroke='%23C9A227' stroke-width='15' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/vt-shared.css">
+<style>
+  .code-input{font-family:'Fraunces',serif;font-size:28px;letter-spacing:.35em;text-align:center;padding:14px 10px;}
+  .already{margin-top:22px;font-size:14px;color:var(--stone);text-align:center;}
+  .already a{color:var(--pine);font-weight:600;}
+</style>
 </head>
 <body>
 
@@ -56,12 +61,23 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="you@brokerage.com" required autocomplete="email">
           </div>
-          <button class="btn btn-primary" type="submit" id="magic-btn">Email me a sign-in link →</button>
+          <button class="btn btn-primary" type="submit" id="magic-btn">Email me a sign-in code →</button>
         </form>
       </div>
 
-      <div class="notice" id="sent-notice" hidden>
-        <strong>Check your inbox.</strong> We sent a sign-in link to <span id="sent-to"></span>. Open it on this device to finish creating your account. It expires in an hour.
+      <!-- Step 2: enter the code (or tap the link in the email — both work) -->
+      <div id="code-step" hidden>
+        <div class="notice">
+          <strong>Check your inbox.</strong> We emailed a 6-digit code to <span id="sent-to"></span>. Enter it below, or just tap the link in the email — either works, on any device. It expires in an hour.
+        </div>
+        <form id="code-form" style="margin-top:18px">
+          <div class="field">
+            <label for="code">6-digit code</label>
+            <input type="text" id="code" name="code" class="code-input" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" required>
+          </div>
+          <button class="btn btn-primary" type="submit" id="code-btn">Continue →</button>
+        </form>
+        <p class="fine-print"><a href="#" id="resend" style="color:var(--pine)">Didn't get it? Send another code</a> · <a href="#" id="change-email" style="color:var(--pine)">Use a different email</a></p>
       </div>
 
       <div class="notice error" id="error-notice" hidden>
@@ -70,6 +86,8 @@
 
       <p class="fine-print">Founding Member status is granted once, numbered, and never re-issued. We'll never sell your info or spam you.</p>
     </div>
+
+    <p class="already">Already a member? <a href="https://vouchterra-app.vercel.app/login">Sign in to the app →</a></p>
   </div>
 </main>
 
@@ -84,6 +102,7 @@
   const cfg = window.VT_CONFIG || {};
   const $ = (id) => document.getElementById(id);
   const showError = (msg) => { $('error-text').textContent = msg; $('error-notice').hidden = false; };
+  const hideError = () => { $('error-notice').hidden = true; };
 
   if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
     $('setup-notice').hidden = false;
@@ -91,8 +110,11 @@
     return;
   }
 
-  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  // Implicit flow: the emailed link carries the session in the URL itself, so it works when the
+  // email is opened on a different device or browser than the one that requested it.
+  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { flowType: 'implicit' } });
   const redirectTo = location.origin + '/welcome.html';
+  let pendingEmail = '';
 
   // Already signed in? Skip straight to the welcome page.
   sb.auth.getSession().then(({ data }) => {
@@ -103,7 +125,7 @@
   document.querySelectorAll('.provider-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       btn.disabled = true;
-      $('error-notice').hidden = true;
+      hideError();
       const provider = btn.dataset.provider;
       const options = { redirectTo };
       if (provider === 'azure') options.scopes = 'email';
@@ -112,21 +134,57 @@
     });
   });
 
-  // Email magic link
-  $('magic-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    $('error-notice').hidden = true;
-    const email = $('email').value.trim();
-    $('magic-btn').disabled = true;
+  async function sendCode(email) {
     const { error } = await sb.auth.signInWithOtp({
       email,
       options: { emailRedirectTo: redirectTo, shouldCreateUser: true }
     });
+    return error;
+  }
+
+  // Step 1: email → send code + link
+  $('magic-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+    const email = $('email').value.trim();
+    $('magic-btn').disabled = true;
+    const error = await sendCode(email);
     $('magic-btn').disabled = false;
     if (error) { showError(error.message); return; }
+    pendingEmail = email;
     $('sent-to').textContent = email;
     $('providers').hidden = true;
-    $('sent-notice').hidden = false;
+    $('code-step').hidden = false;
+    $('code').focus();
+  });
+
+  // Step 2: verify the 6-digit code
+  $('code-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError();
+    const token = $('code').value.replace(/\D/g, '');
+    if (token.length !== 6) { showError('Please enter the 6-digit code from the email.'); return; }
+    $('code-btn').disabled = true;
+    const { error } = await sb.auth.verifyOtp({ email: pendingEmail, token, type: 'email' });
+    $('code-btn').disabled = false;
+    if (error) { showError(error.message.replace('Token has expired or is invalid', 'That code is wrong or has expired. Check the newest email, or send another code.')); return; }
+    location.replace('/welcome.html');
+  });
+
+  $('resend').addEventListener('click', async (e) => {
+    e.preventDefault();
+    hideError();
+    const error = await sendCode(pendingEmail);
+    if (error) showError(error.message);
+    else { $('code').value = ''; $('code').focus(); }
+  });
+
+  $('change-email').addEventListener('click', (e) => {
+    e.preventDefault();
+    hideError();
+    $('code-step').hidden = true;
+    $('providers').hidden = false;
+    $('email').focus();
   });
 })();
 </script>
