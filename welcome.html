@@ -97,16 +97,16 @@
       <div class="member-card">
         <svg class="seal" viewBox="0 0 200 200" fill="none" aria-label="Founding Member seal">
           <defs>
-            <path id="arc-top" d="M 30,100 A 70,70 0 0 1 170,100"/>
+            <path id="arc-top" d="M 42,100 A 58,58 0 0 1 158,100"/>
           </defs>
-          <circle cx="100" cy="100" r="92" stroke="#C9A227" stroke-width="3"/>
-          <circle cx="100" cy="100" r="81" stroke="#C9A227" stroke-width="1.4" opacity="0.5"/>
-          <text font-family="Outfit, sans-serif" font-size="11" font-weight="600" letter-spacing="3.2" fill="#C9A227">
+          <circle cx="100" cy="100" r="96" fill="#1F3D2E"/>
+          <circle cx="100" cy="100" r="86" stroke="#C9A227" stroke-width="3"/>
+          <text font-family="Fraunces, Georgia, serif" font-size="12" font-weight="700" letter-spacing="3.6" fill="#C9A227">
             <textPath href="#arc-top" startOffset="50%" text-anchor="middle" id="seal-arc-text">FOUNDING MEMBER</textPath>
           </text>
-          <path d="M70 90 L92 134" stroke="#F4F1EA" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M92 134 L128 74" stroke="#C9A227" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-          <text x="100" y="160" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" letter-spacing="2.2" fill="#C9A227" id="seal-number">No. — / 100</text>
+          <path d="M66 92 L92 138" stroke="#F4F1EA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M92 138 L134 70" stroke="#C9A227" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="100" y="166" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="11" letter-spacing="2.4" font-weight="600" fill="#F4F1EA" id="seal-number">No. — / 100</text>
         </svg>
         <div class="member-name" id="member-name"></div>
         <div class="member-meta" id="member-meta"></div>
@@ -140,10 +140,17 @@
   const FOUNDING_LIMIT = cfg.foundingLimit || 100;
 
   if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) { location.replace('/join.html'); return; }
-  // Implicit flow (matches join.html): tokens arrive in the URL hash and work from any device.
+  // Implicit flow (matches join.html): OAuth tokens arrive in the URL hash and work from any device.
   const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { flowType: 'implicit' } });
 
-  // supabase-js reads the OAuth / magic-link tokens out of the URL automatically on load.
+  // Email link: the template sends ?token_hash=…&type=email so the link works on any device or browser.
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('token_hash')) {
+    const { error } = await sb.auth.verifyOtp({ token_hash: qs.get('token_hash'), type: qs.get('type') || 'email' });
+    if (error) { location.replace('/join.html?error=' + encodeURIComponent('That sign-in link has expired or was already used. Request a new code below.')); return; }
+  }
+
+  // supabase-js reads the OAuth tokens out of the URL automatically on load.
   let { data: { session } } = await sb.auth.getSession();
   if (!session) {
     // Give the URL-token exchange a beat to finish.
