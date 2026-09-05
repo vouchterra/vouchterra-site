@@ -188,17 +188,19 @@
   }
 
   function showMemberCard(p) {
-    const founding = p.member_number <= FOUNDING_LIMIT;
+    const approved = p.founding_status === 'approved';
+    const inFounding = p.member_number <= FOUNDING_LIMIT;
     $('member-name').textContent = `${p.first_name} ${p.last_name}`;
     $('member-meta').textContent = `${p.role} · ${p.market}`;
-    if (founding) {
+    if (approved && inFounding) {
       $('seal-arc-text').textContent = 'FOUNDING MEMBER';
       $('seal-number').textContent = `No. ${pad(p.member_number)} / ${FOUNDING_LIMIT}`;
       $('member-no').textContent = `Founding Member No. ${pad(p.member_number)}`;
       $('member-eyebrow').textContent = "You're in";
       $('member-title').innerHTML = 'Welcome to the <span class="accent">founding</span> class.';
       $('member-lead').textContent = "Your spot is claimed and numbered. It's yours for good.";
-    } else {
+      $('member-note').textContent = 'Founding Member is a status, not a rating — it says you were here first. Your Verified badge is earned separately, transaction by transaction.';
+    } else if (approved) {
       $('seal-arc-text').textContent = 'EARLY MEMBER';
       $('seal-number').textContent = `No. ${p.member_number}`;
       $('member-no').textContent = `Early Member No. ${p.member_number}`;
@@ -206,6 +208,22 @@
       $('member-title').innerHTML = 'Welcome, <span class="accent">early</span> member.';
       $('member-lead').textContent = `The ${FOUNDING_LIMIT} founding spots are claimed, but you're at the front of the line for your market.`;
       $('member-note').textContent = "We'll email you the moment VouchTerra opens in your market. Your Verified badge is earned transaction by transaction.";
+    } else if (p.founding_status === 'declined') {
+      $('seal-arc-text').textContent = 'MEMBER';
+      $('seal-number').textContent = 'VOUCHTERRA';
+      $('member-no').textContent = 'Member';
+      $('member-eyebrow').textContent = "You're in";
+      $('member-title').innerHTML = 'Welcome to <span class="accent">VouchTerra</span>.';
+      $('member-lead').textContent = 'Your account is active. Open the app to build your vendor list and start logging referrals.';
+      $('member-note').textContent = 'Your Verified badge is earned transaction by transaction.';
+    } else {
+      $('seal-arc-text').textContent = 'PENDING REVIEW';
+      $('seal-number').textContent = `Spot No. ${pad(p.member_number)} reserved`;
+      $('member-no').textContent = `Founding spot No. ${pad(p.member_number)} · pending review`;
+      $('member-eyebrow').textContent = 'Spot reserved';
+      $('member-title').innerHTML = "You're on the <span class=\"accent\">founding</span> list.";
+      $('member-lead').textContent = 'Daniel reviews each founding request personally, usually within a day. Your number is held for you in the meantime, and the app is open to you right now.';
+      $('member-note').textContent = "We'll email you when your Founding Member status is confirmed. Your Verified badge is earned separately, transaction by transaction.";
     }
     $('profile-step').hidden = true;
     $('loading').hidden = true;
